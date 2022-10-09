@@ -3,12 +3,27 @@ import { galleryItems } from "./gallery-items.js";
 
 console.log(galleryItems);
 
-let allPictures = "";
+const galleryRef = document.querySelector(".gallery");
+const galleryMarkUp = createMarkUp(galleryItems);
 
-galleryItems.forEach((obj) => {
-  allPictures += `<div class="gallery__item">
- <a class="gallery__item" href=""${obj.original}"">
-  <img class="gallery__image" src="${obj.preview}" alt="${obj.description}" />
-</a>
-</div>`;
+galleryRef.innerHTML = galleryMarkUp;
+galleryRef.addEventListener("click", onImageClick);
+
+let lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
 });
+
+function createMarkUp(galleryItems) {
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `<a class="gallery__item" href="${original}">
+  <img class="gallery__image" src="${preview}" alt="${description}" />
+</a>`;
+    })
+    .join("");
+}
+
+function onImageClick(event) {
+  event.preventDefault();
+}

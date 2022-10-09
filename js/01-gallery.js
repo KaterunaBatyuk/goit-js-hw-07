@@ -1,6 +1,7 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 console.log(galleryItems);
+
 let allPictures = "";
 
 galleryItems.forEach((obj) => {
@@ -16,11 +17,12 @@ galleryItems.forEach((obj) => {
 </div>`;
 });
 
-const divEl = document.querySelector("div.gallery");
-divEl.innerHTML = allPictures;
+const galleryRef = document.querySelector(".gallery");
 
-divEl.addEventListener("click", onClick);
-function onClick(event) {
+galleryRef.innerHTML = allPictures;
+galleryRef.addEventListener("click", onImageClick);
+
+function onImageClick(event) {
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
